@@ -1,0 +1,49 @@
+<template>
+    <section class="au-animate">
+        <div class="row">
+            <div class="col-lg-push-3 col-lg-6">
+                <h2 style="text-align: center">${heading}</h2>
+                <div class="input-group">
+                    <input type="text" value.bind="userIdToAdd" class="form-control" placeholder="ID пользователя...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" click.delegate="addUser()">Добавить</button>
+                        <button class="btn btn-default" type="button" click.delegate="build()">Построить</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-push-3 col-lg-6">
+                <div>
+                    <div style="float: left; margin: 4px;" class="label label-primary" repeat.for="user of users">
+                        <h5 style="margin: 4px;">
+                            ${user.first_name} ${user.last_name}
+                            <span class="glyphicon glyphicon-remove-circle" style="cursor: pointer;" click.delegate="removeUser(user)"></span>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-push-3 col-lg-6">
+                <a repeat.for="friend of friends" route-href="route: vk-user; params.bind: { id: friend.id };">
+                    <div style="cursor: pointer;" class="panel panel-info">
+                        <div class="panel-heading" style.bind="friend.backgroundStyle">
+                            <p class="panel-title">${friend.first_name} ${friend.last_name}</p>
+                        </div>
+                        <div class="panel-body">
+                            <img style="float: left; margin: 4px 12px 4px 0;" src.bind="friend.photo_50" />
+                            <div style="float: left;">
+                                <p>Пол: ${friend.sex == 1? 'Жен' : 'Муж'}, Возраст: ${friend.bdate}</p>
+                            </div>
+                            <div style="float: right;text-align: right;">
+                                <p>Друзей: ${friend.friendsCount}</p>
+                                <p>Друзей среди выбранных пользователей: ${friend.friendsCountFromUsers}</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+</template>
