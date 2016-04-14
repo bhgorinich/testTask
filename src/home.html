@@ -34,10 +34,10 @@
                         <div class="panel-body">
                             <img style="float: left; margin: 4px 12px 4px 0;" src.bind="friend.photo_50" />
                             <div style="float: left;">
-                                <p>Пол: ${friend.sex == 1? 'Жен' : 'Муж'}, Возраст: ${friend.bdate}</p>
+                                <p>Пол: ${friend.sex == 1? 'Жен' : 'Муж'}</p>
+                                <p if.bind="friend.age">Возраст: ${friend.age}</p>
                             </div>
                             <div style="float: right;text-align: right;">
-                                <p>Друзей: ${friend.friendsCount}</p>
                                 <p>Друзей среди выбранных пользователей: ${friend.friendsCountFromUsers}</p>
                             </div>
                         </div>

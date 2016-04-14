@@ -1,6 +1,7 @@
 import {inject} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-http-client';
 import {Router} from 'aurelia-router';
+import moment from 'moment';
 import 'fetch';
 
 @inject(HttpClient, Router)
@@ -92,10 +93,16 @@ export class Home {
             arrPromises = [];
             arrFriends.forEach(function(friend){
                 friend.backgroundStyle = that.getColorizeByFriend(friend);
-                /*arrPromises.push(
-                    that.getFriendsByUser(friend)
-                        .then(friendFriends => friend.friendsCount = friendFriends.length)
-                );*/
+                if(/\d{1,2}\.\d{1,2}.\d{4}/ig.test(friend.bdate)){
+                    moment.locale("ru");
+                    var bdateMoment = moment(friend.bdate, "DD.MM.YYYY");
+                    if(moment.isMoment(bdateMoment)){
+                        friend.age = moment.duration(moment().subtract(bdateMoment.toDate().valueOf()).valueOf(), "milliseconds").humanize();
+                    }
+                    else{
+                        friend.age = "";
+                    }
+                }
             });
             return Promise.all(arrPromises);
         }).then(function(){
